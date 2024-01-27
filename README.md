@@ -1,1 +1,1 @@
-This program works only for 2x2 for now
+This program calculates the determenant of the matrix
