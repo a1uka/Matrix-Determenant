@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
 #include <time.h>
 #include <conio.h>
@@ -24,10 +25,23 @@ double matrixToStep(const int* n, double* a) {
 }
 
 void enterMatrix(const int* n, double* a) {
-	srand(time(NULL));
-	for (int i = 0; i < *n; i++) {
-		for (int j = 0; j < *n; j++) {
-			*(a + (100) * i + j) = -100 + rand() % 300 + 1;
+	printf("Do you want to enter random matrix or manual? (Random/Manual)\n");
+	char s[10];
+	gets_s(s);
+	if (strcmp(s, "Random") == 0 or strcmp(s, 'random') == 0 or strcmp(s, "rand") == 0) {
+		srand(time(NULL));
+		for (int i = 0; i < *n; i++) {
+			for (int j = 0; j < *n; j++) {
+				*(a + 100 * i + j) = -100 + rand() % 300 + 1;
+			}
+		}
+	}
+	if (strcmp(s, "Manual") == 0 or strcmp(s, 'manual') == 0) {
+		for (int i = 0; i < *n; i++) {
+			for (int j = 0; j < *n; j++) {
+				scanf("%lf", &(a + 100 * i + j));
+			}
+			puts("");
 		}
 	}
 }
@@ -47,7 +61,7 @@ int main() {
 	double A[100][100];
 	scanf_s("%d", &n);
 	enterMatrix(&n, *A);
-	puts("Output of the obtained matrix");
+	puts("Output of the entered matrix");
 	printMatrix(&n, *A);
 	double det = matrixToStep(&n, *A);
 	puts("Stepped matrix");
