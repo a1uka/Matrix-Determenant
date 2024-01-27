@@ -2,26 +2,25 @@
 #include <stdio.h>
 #include <time.h>
 #include <conio.h>
-//not working for matrix bigger then 2x2 at the moment
+//it works \o/
+//          |
+//         / \
 
 double matrixToStep(const int* n, double* a) {
-	double mult = 1, m, a_i;
+	double det = 1, m, a_i;
 	for (int k = 0; k < *n - 1; k++) {
-		m = *(a + k*100 + k);
-		mult = mult / m;
-		
-		for (int i = k; i < *n; i++) {
-			*(a + 100*(k) + i) = (*(a + 100 * (k) + i)) / m;
-		}
+		a_i = *(a + k + 100 * k);
 		for (int i = k + 1; i < *n; i++) {
-			a_i = *(a + 100 * i + k);
+			m = (*(a + k + 100 * i)) / ((a_i) * (-1));
 			for (int j = 0; j < *n; j++) {
-				*(a + (100) * i + j) = (*(a + (100) * i + j)) - a_i * (*(a + (100) * k + j));
+				*(a + i * 100 + j) = *(a + i * 100 + j) + (m * (*(a + j + 100 * k));
 			}
 		}
-
 	}
-	return mult;
+	for (int i = 0; i < *n; i++) {
+		det *= *(a + i * 100 + i);
+	}
+	return det;
 }
 
 void enterMatrix(const int* n, double* a) {
@@ -51,9 +50,6 @@ int main() {
 	puts("Output of the obtained matrix");
 	printMatrix(&n, *A);
 	double det = matrixToStep(&n, *A);
-	for (int i = 0; i < n; i++) {
-		det *= A[i][i];
-	}
 	puts("Stepped matrix");
 	printMatrix(&n, *A);
 	printf("Determenant of the matrix = %lf", det);
