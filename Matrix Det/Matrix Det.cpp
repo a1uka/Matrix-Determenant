@@ -7,8 +7,8 @@
 //          |
 //         / \
 
-double matrixToStep(const int* n, double* a) {
-	double det = 1, m, a_i;
+void matrixToStep(const int* n, double* a) {
+	double m, a_i;
 	for (int k = 0; k < *n - 1; k++) {
 		a_i = *(a + k + 100 * k);
 		for (int i = k + 1; i < *n; i++) {
@@ -18,10 +18,6 @@ double matrixToStep(const int* n, double* a) {
 			}
 		}
 	}
-	for (int i = 0; i < *n; i++) {
-		det *= *(a + i * 100 + i);
-	}
-	return det;
 }
 
 void enterMatrix(const int* n, double* a) {
@@ -55,6 +51,14 @@ void printMatrix(const int* n, const double* a) {
 	}
 }
 
+double determenant(const int* n, const double* a){
+	double det = 1;
+	for(int i = 0; i < *n; i++){
+		det *= *(a + i*100 + i);
+	}
+	return det;
+}
+
 int main() {
 	puts("Enter size of matrix");
 	int n;
@@ -63,7 +67,8 @@ int main() {
 	enterMatrix(&n, *A);
 	puts("Output of the entered matrix");
 	printMatrix(&n, *A);
-	double det = matrixToStep(&n, *A);
+	matrixToStep(&n, *A);
+	double det = determenant(&n, *A);
 	puts("Stepped matrix");
 	printMatrix(&n, *A);
 	printf("Determenant of the matrix = %lf", det);
